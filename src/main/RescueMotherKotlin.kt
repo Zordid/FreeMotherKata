@@ -9,6 +9,10 @@ class NumberCracker {
             return str.toSet().size == 9
         }
 
+        /**
+         * As per code definition, condition 2 means:
+         * - read the digits from right to left and it must be a square number
+         */
         fun testCondition2(str: String): Boolean {
             val reversed = str.reversed().toInt()
             val sqrt = Math.sqrt(reversed.toDouble());
