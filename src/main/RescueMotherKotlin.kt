@@ -24,7 +24,7 @@ class NumberCracker {
 }
 
 fun main(args: Array<String>) {
-    for (i in 999999999 downTo  0 ) {
+    for (i in 987654321 downTo 0 ) {
         val s = i.toString().padStart(9, '0')
 
         if (NumberCracker.testCondition1(s) && NumberCracker.testCondition2(s)) {
