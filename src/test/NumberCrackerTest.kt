@@ -22,6 +22,12 @@ class NumberCrackerTest {
     }
 
     @Test
+    fun `test condition 1 for containing only digits`() {
+        Assert.assertTrue(NumberCracker.testCondition1("123456789"))
+        Assert.assertFalse(NumberCracker.testCondition1("1234A6789"))
+    }
+
+    @Test
     fun `test condition 2`() {
         Assert.assertTrue(NumberCracker.testCondition2("46"))
         Assert.assertFalse(NumberCracker.testCondition2("64"))
@@ -31,14 +37,14 @@ class NumberCrackerTest {
     @Test
     fun `test the magic code`() {
         val code = "982356417"
-        Assert.assertTrue(NumberCracker.testCondition1(code) && NumberCracker.testCondition2(code))
+        Assert.assertTrue(NumberCracker.testCode(code))
     }
 
     @Test
-    fun `test that there is no bigger code`() {
+    fun `test that there is no larger code`() {
         val code = 982356417
-        for (i in (code+1) until 1000000000) {
-            Assert.assertFalse(NumberCracker.testCondition1(i.toString()) && NumberCracker.testCondition2(i.toString()))
+        for (i in (code + 1) until 1000000000) {
+            Assert.assertFalse(NumberCracker.testCode(i.toString()))
         }
     }
 
