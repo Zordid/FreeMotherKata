@@ -1,5 +1,7 @@
 class NumberCracker {
     companion object {
-        fun testCondition1(str:String) = str.length == 9
+        fun testCondition1(str:String): Boolean {
+            return str.toSet().size == 9
+        }
     }
 }
