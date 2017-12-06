@@ -22,6 +22,7 @@ class NumberCrackerTest {
     fun `Teste Bedingung 2`() {
         Assert.assertTrue(NumberCracker.testCondition2("46"))
         Assert.assertFalse(NumberCracker.testCondition2("64"))
+        Assert.assertTrue(NumberCracker.testCondition2((123 * 123).toString().reversed()))
     }
 
 }
