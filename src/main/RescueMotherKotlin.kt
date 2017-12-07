@@ -1,5 +1,11 @@
+import NumberCracker.Companion.crackCode
+import kotlin.system.measureTimeMillis
+
 class NumberCracker {
     companion object {
+
+        // we know for sure the possible range of combinations
+        private val MAX_POSSIBLE_RANGE = 12345678..987654321
 
         /**
          * As per code definition, condition 1 means:
@@ -19,20 +25,37 @@ class NumberCracker {
             return sqrt.toInt() * sqrt.toInt() == reversed
         }
 
-        fun testCode(code: String) = testCondition1(code) && testCondition2(code)
+        /**
+         * As per code definition, condition 3 means:
+         * - there must not be a greater number than the code that fulfills the first two conditions
+         */
+        internal fun testCondition3(code: String): Boolean {
+            val codeAsInt = try {
+                code.toInt()
+            } catch (e: NumberFormatException) {
+                return false
+            }
+            return ((codeAsInt+1) .. MAX_POSSIBLE_RANGE.last).none { testConditions1And2(it.toString()) }
+        }
+
+        private fun testConditions1And2(code: String) = testCondition1(code) && testCondition2(code)
+
+        fun crackCode(rangeToTest: IntRange = MAX_POSSIBLE_RANGE): String? {
+            for (t in rangeToTest.reversed()) {
+                val code = t.toString().padStart(9, '0')
+                if (testConditions1And2(code))
+                    return code
+            }
+            return null
+        }
 
     }
 
 }
 
 fun main(args: Array<String>) {
-    for (i in 987654321 downTo 12345678) {
-        val code = i.toString().padStart(9, '0')
-
-        if (NumberCracker.testCode(code)) {
-            println("The number cracker password is: $code")
-            return
-        }
+    val time = measureTimeMillis {
+        print(crackCode()?.let { "Found the matching code: $it" } ?: "No matching code found.")
     }
-    println("No matching code found.")
+    print("Took $time ms.")
 }
